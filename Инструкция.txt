@@ -1,0 +1,127 @@
+### Server Container
+1) docker build . -t server_for_tensor ##собираем контейнер в папке server
+2) docker run -h server -ti server_for_tensor bash ## вошли в контейнер сервера
+3) hostname -i ## получить ip адрес контейнера
+
+### Сlient Container
+4) docker build . -t client_for_tensor  ##собираем контейнер в папке client
+5) docker run -h server -ti client_for_tensor bash ## вошли в контейнер клиента
+6) echo  'ip адрес сервера ' > server_ip ##записать ip сервера, полученный из п.3 в файл server_ip
+
+Убедитесь что файлы в контейнерах server.sh client.sh metric_server.sh metric.py имеют бит на исполнение (chmod +x). Некоторые машины моей фермы по какой-то причине игнорируют это задание Dockerfile.
+
+### Server Container
+7) ./server.sh  ## запуск серверной части для задания №1
+
+### Client Container
+8) ./client.sh ## запуск клиентской части
+
+(Думаю не надо говорить, почему клиент-серверная архитектура устройства мира требует сперва запуска сервера, а потом клиента.)
+
+если всё сделали правильно увидим как сервер забирает прогресс dd с клиента:
+
+root@server:~# ./server.sh  
+Getting a data from client. Running.
+														##тут мы ещё не запустили клиент и сервер ничего не получил
+Getting a data from client. Running.
+165888 bytes (166 kB, 162 KiB) copied, 1 s, 165 kB/s
+Getting a data from client. Running.
+898048 bytes (898 kB, 877 KiB) copied, 6 s, 150 kB/s
+Getting a data from client. Running.
+1720320 bytes (1.7 MB, 1.6 MiB) copied, 11 s, 156 kB/s
+Getting a data from client. Running.
+2455552 bytes (2.5 MB, 2.3 MiB) copied, 16 s, 153 kB/s
+Getting a data from client. Running.
+3231744 bytes (3.2 MB, 3.1 MiB) copied, 21 s, 154 kB/s
+Getting a data from client. Running.
+4045824 bytes (4.0 MB, 3.9 MiB) copied, 26 s, 156 kB/s
+Getting a data from client. Running.
+4856832 bytes (4.9 MB, 4.6 MiB) copied, 31 s, 157 kB/s
+Getting a data from client. Running.
+5614592 bytes (5.6 MB, 5.4 MiB) copied, 36 s, 156 kB/s
+Getting a data from client. Running.
+6393856 bytes (6.4 MB, 6.1 MiB) copied, 41 s, 156 kB/s
+Getting a data from client. Running.
+7179264 bytes (7.2 MB, 6.8 MiB) copied, 46 s, 156 kB/s
+Transmission has been completed. Stopped.
+
+Даём время клиенту закончить процесс dd и переходим к метрикам/заданию 2.
+
+
+Задание №2.
+(Я никогда не работал с Prometheus, поэтому формат его метрик изучал по Хабру)
+
+### Server container
+9) ./server_metric.sh  ##запускаем сбор метрик на сервере
+
+### Client Container
+10)./client.sh  ##запускаем клиентскую часть (да, это тот же самый файл)
+
+если всё сделали правильно, наблюдаем на сервере:
+
+root@server:~# ./metric_server.sh
+Waiting for data from client...    ### тут мы ещё не запустили клиент и сервер ничего не получил
+dd_copying_metric{time_progress="2 sec", read_bytes="327 kB", written_bytes="319 KiB", speed="163 kB/s"}
+dd_copying_metric{time_progress="7 sec", read_bytes="1.1 MB", written_bytes="1.0 MiB", speed="153 kB/s"}
+dd_copying_metric{time_progress="12 sec", read_bytes="1.9 MB", written_bytes="1.8 MiB", speed="159 kB/s"}
+dd_copying_metric{time_progress="17 sec", read_bytes="2.7 MB", written_bytes="2.6 MiB", speed="160 kB/s"}
+dd_copying_metric{time_progress="22 sec", read_bytes="3.6 MB", written_bytes="3.4 MiB", speed="161 kB/s"}
+dd_copying_metric{time_progress="27 sec", read_bytes="4.3 MB", written_bytes="4.1 MiB", speed="159 kB/s"}
+dd_copying_metric{time_progress="32 sec", read_bytes="5.0 MB", written_bytes="4.8 MiB", speed="157 kB/s"}
+dd_copying_metric{time_progress="37 sec", read_bytes="5.8 MB", written_bytes="5.5 MiB", speed="156 kB/s"}
+dd_copying_metric{time_progress="42 sec", read_bytes="6.5 MB", written_bytes="6.2 MiB", speed="155 kB/s"}
+dd_copying_metric{time_progress="47 sec", read_bytes="7.4 MB", written_bytes="7.0 MiB", speed="156 kB/s"}
+Transmission has been completed. Stopped.
+
+Даём время клиенту закончить процесс dd и переходим к заданию №3.
+
+Как это работает:
+metric_server.sh запускает парсер на Python (metric.py), который транслирует данные от клиента в формат метрик Prometheus каждые 5 сек. 
+Собираемые метрики от dd: 
+1) time_progress ## Время с начала запуска dd на клиенте
+2) read_bytes ## Сколько данных dd прочитал
+3) written_bytes ## Сколько данных dd записал
+4) speed ## Скорость работы dd c блоком
+
+Если что-то пошло не так, закрываем/открываем контейнеры заново и читаем инструкцию заново.
+
+
+Задание №3
+
+echo '8:16 2' > /sys/fs/cgroup/blkio/docker/aee8a7a469fe70d0458cddb64346965498aa12b8c79c026a1183ea9f234fd7ea/blkio.throttle.write_iops_device   ##ограничиваем input/output operations per second (iops) для контейнера клиента (хеш контейнера выясняем у демона docker). Запускаем server_metric.sh для сервера и client.sh для клиента. Наблюдаем что метрики скорости упали до 2 Кb/s.
+
+
+dd_copying_metric{time_progress="180 sec", read_bytes="369 kB", written_bytes="360 KiB", speed="2.0 kB/s"}
+dd_copying_metric{time_progress="185 sec", read_bytes="379 kB", written_bytes="370 KiB", speed="2.0 kB/s"}
+dd_copying_metric{time_progress="190 sec", read_bytes="389 kB", written_bytes="380 KiB", speed="2.0 kB/s"}
+dd_copying_metric{time_progress="195 sec", read_bytes="399 kB", written_bytes="390 KiB", speed="2.0 kB/s"}
+dd_copying_metric{time_progress="201 sec", read_bytes="412 kB", written_bytes="402 KiB", speed="2.0 kB/s"}
+dd_copying_metric{time_progress="206 sec", read_bytes="422 kB", written_bytes="412 KiB", speed="2.0 kB/s"}
+dd_copying_metric{time_progress="211 sec", read_bytes="432 kB", written_bytes="422 KiB", speed="2.0 kB/s"}
+dd_copying_metric{time_progress="216 sec", read_bytes="442 kB", written_bytes="432 KiB", speed="2.0 kB/s"}
+dd_copying_metric{time_progress="221 sec", read_bytes="453 kB", written_bytes="442 KiB", speed="2.0 kB/s"}
+dd_copying_metric{time_progress="226 sec", read_bytes="463 kB", written_bytes="452 KiB", speed="2.0 kB/s"}
+dd_copying_metric{time_progress="231 sec", read_bytes="473 kB", written_bytes="462 KiB", speed="2.0 kB/s"}
+dd_copying_metric{time_progress="236 sec", read_bytes="483 kB", written_bytes="472 KiB", speed="2.0 kB/s"}
+
+На ходу переписываем переменные для функции драйвера блочных устройств ядра linux в '8:16 2000'. Скорость начинает расти, процесс чтения/запси пошёл веселее.
+
+dd_copying_metric{time_progress="231 sec", read_bytes="473 kB", written_bytes="462 KiB", speed="2.0 kB/s"}   ## 8:16 2
+dd_copying_metric{time_progress="236 sec", read_bytes="483 kB", written_bytes="472 KiB", speed="2.0 kB/s"}
+dd_copying_metric{time_progress="241 sec", read_bytes="494 kB", written_bytes="482 KiB", speed="2.0 kB/s"}
+dd_copying_metric{time_progress="246 sec", read_bytes="568 kB", written_bytes="555 KiB", speed="2.3 kB/s"}   ## 8:16 2000
+dd_copying_metric{time_progress="251 sec", read_bytes="1.2 MB", written_bytes="1.2 MiB", speed="4.8 kB/s"}
+dd_copying_metric{time_progress="256 sec", read_bytes="2.0 MB", written_bytes="1.9 MiB", speed="7.8 kB/s"}
+dd_copying_metric{time_progress="261 sec", read_bytes="2.7 MB", written_bytes="2.6 MiB", speed="10.4 kB/s"}  
+dd_copying_metric{time_progress="266 sec", read_bytes="3.5 MB", written_bytes="3.3 MiB", speed="13.1 kB/s"}
+dd_copying_metric{time_progress="271 sec", read_bytes="4.3 MB", written_bytes="4.1 MiB", speed="15.8 kB/s"}
+dd_copying_metric{time_progress="276 sec", read_bytes="5.0 MB", written_bytes="4.8 MiB", speed="18.1 kB/s"}
+dd_copying_metric{time_progress="281 sec", read_bytes="5.8 MB", written_bytes="5.5 MiB", speed="20.5 kB/s"}
+dd_copying_metric{time_progress="286 sec", read_bytes="6.5 MB", written_bytes="6.2 MiB", speed="22.8 kB/s"}
+dd_copying_metric{time_progress="291 sec", read_bytes="7.3 MB", written_bytes="7.0 MiB", speed="25.2 kB/s"}
+Transmission has been completed. Stopped.
+
+
+Все скриншотики прилагаю.
+
+P.S. Я планировал ещё закоммитить контейнеры, залить их к себе на докерхаб и заэкспозить .yml в unified compose.. Но на улице такая хорошая погода, что мне (пока что) чё-т лень.

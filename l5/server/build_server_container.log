@@ -1,0 +1,404 @@
+Sending build context to Docker daemon  6.144kB
+Step 1/16 : FROM ubuntu
+ ---> ff0fea8310f3
+Step 2/16 : RUN apt-get update
+ ---> Running in 900c2c861a17
+Get:1 http://archive.ubuntu.com/ubuntu focal InRelease [265 kB]
+Get:2 http://security.ubuntu.com/ubuntu focal-security InRelease [114 kB]
+Get:3 http://archive.ubuntu.com/ubuntu focal-updates InRelease [114 kB]
+Get:4 http://archive.ubuntu.com/ubuntu focal-backports InRelease [108 kB]
+Get:5 http://archive.ubuntu.com/ubuntu focal/main amd64 Packages [1275 kB]
+Get:6 http://archive.ubuntu.com/ubuntu focal/restricted amd64 Packages [33.4 kB]
+Get:7 http://archive.ubuntu.com/ubuntu focal/universe amd64 Packages [11.3 MB]
+Get:8 http://security.ubuntu.com/ubuntu focal-security/universe amd64 Packages [863 kB]
+Get:9 http://archive.ubuntu.com/ubuntu focal/multiverse amd64 Packages [177 kB]
+Get:10 http://archive.ubuntu.com/ubuntu focal-updates/multiverse amd64 Packages [30.3 kB]
+Get:11 http://archive.ubuntu.com/ubuntu focal-updates/universe amd64 Packages [1146 kB]
+Get:12 http://archive.ubuntu.com/ubuntu focal-updates/restricted amd64 Packages [1139 kB]
+Get:13 http://archive.ubuntu.com/ubuntu focal-updates/main amd64 Packages [2099 kB]
+Get:14 http://archive.ubuntu.com/ubuntu focal-backports/universe amd64 Packages [26.0 kB]
+Get:15 http://archive.ubuntu.com/ubuntu focal-backports/main amd64 Packages [51.2 kB]
+Get:16 http://security.ubuntu.com/ubuntu focal-security/multiverse amd64 Packages [25.8 kB]
+Get:17 http://security.ubuntu.com/ubuntu focal-security/main amd64 Packages [1683 kB]
+Get:18 http://security.ubuntu.com/ubuntu focal-security/restricted amd64 Packages [1068 kB]
+Fetched 21.6 MB in 3s (6980 kB/s)
+Reading package lists...
+Removing intermediate container 900c2c861a17
+ ---> ee7c3a99d643
+Step 3/16 : RUN apt install pv -y
+ ---> Running in 8893706e69b6
+[91m
+WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
+
+[0mReading package lists...
+Building dependency tree...
+Reading state information...
+Suggested packages:
+  doc-base
+The following NEW packages will be installed:
+  pv
+0 upgraded, 1 newly installed, 0 to remove and 0 not upgraded.
+Need to get 48.3 kB of archives.
+After this operation, 123 kB of additional disk space will be used.
+Get:1 http://archive.ubuntu.com/ubuntu focal/main amd64 pv amd64 1.6.6-1 [48.3 kB]
+[91mdebconf: delaying package configuration, since apt-utils is not installed
+[0mFetched 48.3 kB in 1s (91.7 kB/s)
+Selecting previously unselected package pv.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 4127 files and directories currently installed.)
+Preparing to unpack .../archives/pv_1.6.6-1_amd64.deb ...
+Unpacking pv (1.6.6-1) ...
+Setting up pv (1.6.6-1) ...
+Removing intermediate container 8893706e69b6
+ ---> 6e3b1e792e5e
+Step 4/16 : RUN apt install netcat -y
+ ---> Running in d9f6344154a3
+[91m
+WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
+
+[0mReading package lists...
+Building dependency tree...
+Reading state information...
+The following additional packages will be installed:
+  libbsd0 netcat-openbsd
+The following NEW packages will be installed:
+  libbsd0 netcat netcat-openbsd
+0 upgraded, 3 newly installed, 0 to remove and 0 not upgraded.
+Need to get 85.3 kB of archives.
+After this operation, 330 kB of additional disk space will be used.
+Get:1 http://archive.ubuntu.com/ubuntu focal/main amd64 libbsd0 amd64 0.10.0-1 [45.4 kB]
+Get:2 http://archive.ubuntu.com/ubuntu focal/main amd64 netcat-openbsd amd64 1.206-1ubuntu1 [37.8 kB]
+Get:3 http://archive.ubuntu.com/ubuntu focal/universe amd64 netcat all 1.206-1ubuntu1 [2172 B]
+[91mdebconf: delaying package configuration, since apt-utils is not installed
+[0mFetched 85.3 kB in 2s (34.8 kB/s)
+Selecting previously unselected package libbsd0:amd64.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 4139 files and directories currently installed.)
+Preparing to unpack .../libbsd0_0.10.0-1_amd64.deb ...
+Unpacking libbsd0:amd64 (0.10.0-1) ...
+Selecting previously unselected package netcat-openbsd.
+Preparing to unpack .../netcat-openbsd_1.206-1ubuntu1_amd64.deb ...
+Unpacking netcat-openbsd (1.206-1ubuntu1) ...
+Selecting previously unselected package netcat.
+Preparing to unpack .../netcat_1.206-1ubuntu1_all.deb ...
+Unpacking netcat (1.206-1ubuntu1) ...
+Setting up libbsd0:amd64 (0.10.0-1) ...
+Setting up netcat-openbsd (1.206-1ubuntu1) ...
+update-alternatives: using /bin/nc.openbsd to provide /bin/nc (nc) in auto mode
+update-alternatives: warning: skip creation of /usr/share/man/man1/nc.1.gz because associated file /usr/share/man/man1/nc_openbsd.1.gz (of link group nc) doesn't exist
+update-alternatives: warning: skip creation of /usr/share/man/man1/netcat.1.gz because associated file /usr/share/man/man1/nc_openbsd.1.gz (of link group nc) doesn't exist
+Setting up netcat (1.206-1ubuntu1) ...
+Processing triggers for libc-bin (2.31-0ubuntu9.7) ...
+Removing intermediate container d9f6344154a3
+ ---> e961d01d7bb3
+Step 5/16 : RUN apt install net-tools -y
+ ---> Running in 2ea534aca5bf
+[91m
+WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
+
+[0mReading package lists...
+Building dependency tree...
+Reading state information...
+The following NEW packages will be installed:
+  net-tools
+0 upgraded, 1 newly installed, 0 to remove and 0 not upgraded.
+Need to get 196 kB of archives.
+After this operation, 864 kB of additional disk space will be used.
+Get:1 http://archive.ubuntu.com/ubuntu focal/main amd64 net-tools amd64 1.60+git20180626.aebd88e-1ubuntu1 [196 kB]
+[91mdebconf: delaying package configuration, since apt-utils is not installed
+[0mFetched 196 kB in 1s (255 kB/s)
+Selecting previously unselected package net-tools.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 4169 files and directories currently installed.)
+Preparing to unpack .../net-tools_1.60+git20180626.aebd88e-1ubuntu1_amd64.deb ...
+Unpacking net-tools (1.60+git20180626.aebd88e-1ubuntu1) ...
+Setting up net-tools (1.60+git20180626.aebd88e-1ubuntu1) ...
+Removing intermediate container 2ea534aca5bf
+ ---> b6c59ba33038
+Step 6/16 : RUN apt install iputils-ping -y
+ ---> Running in 65d7732f2db6
+[91m
+WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
+
+[0mReading package lists...
+Building dependency tree...
+Reading state information...
+The following additional packages will be installed:
+  libcap2 libcap2-bin libpam-cap
+The following NEW packages will be installed:
+  iputils-ping libcap2 libcap2-bin libpam-cap
+0 upgraded, 4 newly installed, 0 to remove and 0 not upgraded.
+Need to get 90.5 kB of archives.
+After this operation, 333 kB of additional disk space will be used.
+Get:1 http://archive.ubuntu.com/ubuntu focal/main amd64 libcap2 amd64 1:2.32-1 [15.9 kB]
+Get:2 http://archive.ubuntu.com/ubuntu focal/main amd64 libcap2-bin amd64 1:2.32-1 [26.2 kB]
+Get:3 http://archive.ubuntu.com/ubuntu focal/main amd64 iputils-ping amd64 3:20190709-3 [40.1 kB]
+Get:4 http://archive.ubuntu.com/ubuntu focal/main amd64 libpam-cap amd64 1:2.32-1 [8352 B]
+[91mdebconf: delaying package configuration, since apt-utils is not installed
+[0mFetched 90.5 kB in 0s (264 kB/s)
+Selecting previously unselected package libcap2:amd64.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 4218 files and directories currently installed.)
+Preparing to unpack .../libcap2_1%3a2.32-1_amd64.deb ...
+Unpacking libcap2:amd64 (1:2.32-1) ...
+Selecting previously unselected package libcap2-bin.
+Preparing to unpack .../libcap2-bin_1%3a2.32-1_amd64.deb ...
+Unpacking libcap2-bin (1:2.32-1) ...
+Selecting previously unselected package iputils-ping.
+Preparing to unpack .../iputils-ping_3%3a20190709-3_amd64.deb ...
+Unpacking iputils-ping (3:20190709-3) ...
+Selecting previously unselected package libpam-cap:amd64.
+Preparing to unpack .../libpam-cap_1%3a2.32-1_amd64.deb ...
+Unpacking libpam-cap:amd64 (1:2.32-1) ...
+Setting up libcap2:amd64 (1:2.32-1) ...
+Setting up libcap2-bin (1:2.32-1) ...
+Setting up libpam-cap:amd64 (1:2.32-1) ...
+debconf: unable to initialize frontend: Dialog
+debconf: (TERM is not set, so the dialog frontend is not usable.)
+debconf: falling back to frontend: Readline
+debconf: unable to initialize frontend: Readline
+debconf: (Can't locate Term/ReadLine.pm in @INC (you may need to install the Term::ReadLine module) (@INC contains: /etc/perl /usr/local/lib/x86_64-linux-gnu/perl/5.30.0 /usr/local/share/perl/5.30.0 /usr/lib/x86_64-linux-gnu/perl5/5.30 /usr/share/perl5 /usr/lib/x86_64-linux-gnu/perl/5.30 /usr/share/perl/5.30 /usr/local/lib/site_perl /usr/lib/x86_64-linux-gnu/perl-base) at /usr/share/perl5/Debconf/FrontEnd/Readline.pm line 7.)
+debconf: falling back to frontend: Teletype
+Setting up iputils-ping (3:20190709-3) ...
+Processing triggers for libc-bin (2.31-0ubuntu9.7) ...
+Removing intermediate container 65d7732f2db6
+ ---> 2ed2577d5d5e
+Step 7/16 : RUN apt install expect -y
+ ---> Running in fd07ed142c93
+[91m
+WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
+
+[0mReading package lists...
+Building dependency tree...
+Reading state information...
+The following additional packages will be installed:
+  libtcl8.6 tcl-expect tcl8.6 tzdata
+Suggested packages:
+  tk8.6 tcl-tclreadline
+The following NEW packages will be installed:
+  expect libtcl8.6 tcl-expect tcl8.6 tzdata
+0 upgraded, 5 newly installed, 0 to remove and 0 not upgraded.
+Need to get 1454 kB of archives.
+After this operation, 8753 kB of additional disk space will be used.
+Get:1 http://archive.ubuntu.com/ubuntu focal-updates/main amd64 tzdata all 2022a-0ubuntu0.20.04 [294 kB]
+Get:2 http://archive.ubuntu.com/ubuntu focal/main amd64 libtcl8.6 amd64 8.6.10+dfsg-1 [902 kB]
+Get:3 http://archive.ubuntu.com/ubuntu focal/main amd64 tcl8.6 amd64 8.6.10+dfsg-1 [14.8 kB]
+Get:4 http://archive.ubuntu.com/ubuntu focal/universe amd64 tcl-expect amd64 5.45.4-2build1 [105 kB]
+Get:5 http://archive.ubuntu.com/ubuntu focal/universe amd64 expect amd64 5.45.4-2build1 [137 kB]
+[91mdebconf: delaying package configuration, since apt-utils is not installed
+[0mFetched 1454 kB in 1s (1166 kB/s)
+Selecting previously unselected package tzdata.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 4255 files and directories currently installed.)
+Preparing to unpack .../tzdata_2022a-0ubuntu0.20.04_all.deb ...
+Unpacking tzdata (2022a-0ubuntu0.20.04) ...
+Selecting previously unselected package libtcl8.6:amd64.
+Preparing to unpack .../libtcl8.6_8.6.10+dfsg-1_amd64.deb ...
+Unpacking libtcl8.6:amd64 (8.6.10+dfsg-1) ...
+Selecting previously unselected package tcl8.6.
+Preparing to unpack .../tcl8.6_8.6.10+dfsg-1_amd64.deb ...
+Unpacking tcl8.6 (8.6.10+dfsg-1) ...
+Selecting previously unselected package tcl-expect:amd64.
+Preparing to unpack .../tcl-expect_5.45.4-2build1_amd64.deb ...
+Unpacking tcl-expect:amd64 (5.45.4-2build1) ...
+Selecting previously unselected package expect.
+Preparing to unpack .../expect_5.45.4-2build1_amd64.deb ...
+Unpacking expect (5.45.4-2build1) ...
+Setting up tzdata (2022a-0ubuntu0.20.04) ...
+debconf: unable to initialize frontend: Dialog
+debconf: (TERM is not set, so the dialog frontend is not usable.)
+debconf: falling back to frontend: Readline
+debconf: unable to initialize frontend: Readline
+debconf: (Can't locate Term/ReadLine.pm in @INC (you may need to install the Term::ReadLine module) (@INC contains: /etc/perl /usr/local/lib/x86_64-linux-gnu/perl/5.30.0 /usr/local/share/perl/5.30.0 /usr/lib/x86_64-linux-gnu/perl5/5.30 /usr/share/perl5 /usr/lib/x86_64-linux-gnu/perl/5.30 /usr/share/perl/5.30 /usr/local/lib/site_perl /usr/lib/x86_64-linux-gnu/perl-base) at /usr/share/perl5/Debconf/FrontEnd/Readline.pm line 7.)
+debconf: falling back to frontend: Teletype
+Configuring tzdata
+------------------
+
+Please select the geographic area in which you live. Subsequent configuration
+questions will narrow this down by presenting a list of cities, representing
+the time zones in which they are located.
+
+  1. Africa      4. Australia  7. Atlantic  10. Pacific  13. Etc
+  2. America     5. Arctic     8. Europe    11. SystemV
+  3. Antarctica  6. Asia       9. Indian    12. US
+Geographic area: 
+Use of uninitialized value $_[1] in join or string at /usr/share/perl5/Debconf/DbDriver/Stack.pm line 111.
+
+Current default time zone: '/UTC'
+Local time is now:      Sun Mar 27 11:31:02 UTC 2022.
+Universal Time is now:  Sun Mar 27 11:31:02 UTC 2022.
+Run 'dpkg-reconfigure tzdata' if you wish to change it.
+
+Use of uninitialized value $val in substitution (s///) at /usr/share/perl5/Debconf/Format/822.pm line 83, <GEN6> line 4.
+Use of uninitialized value $val in concatenation (.) or string at /usr/share/perl5/Debconf/Format/822.pm line 84, <GEN6> line 4.
+Setting up libtcl8.6:amd64 (8.6.10+dfsg-1) ...
+Setting up tcl8.6 (8.6.10+dfsg-1) ...
+Setting up tcl-expect:amd64 (5.45.4-2build1) ...
+Setting up expect (5.45.4-2build1) ...
+Processing triggers for libc-bin (2.31-0ubuntu9.7) ...
+Removing intermediate container fd07ed142c93
+ ---> c4c9e1635183
+Step 8/16 : RUN apt install python3 -y
+ ---> Running in 5ba19bd20365
+[91m
+WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
+
+[0mReading package lists...
+Building dependency tree...
+Reading state information...
+The following additional packages will be installed:
+  file libexpat1 libmagic-mgc libmagic1 libmpdec2 libpython3-stdlib
+  libpython3.8-minimal libpython3.8-stdlib libreadline8 libsqlite3-0 libssl1.1
+  mime-support python3-minimal python3.8 python3.8-minimal readline-common
+  xz-utils
+Suggested packages:
+  python3-doc python3-tk python3-venv python3.8-venv python3.8-doc binutils
+  binfmt-support readline-doc
+The following NEW packages will be installed:
+  file libexpat1 libmagic-mgc libmagic1 libmpdec2 libpython3-stdlib
+  libpython3.8-minimal libpython3.8-stdlib libreadline8 libsqlite3-0 libssl1.1
+  mime-support python3 python3-minimal python3.8 python3.8-minimal
+  readline-common xz-utils
+0 upgraded, 18 newly installed, 0 to remove and 0 not upgraded.
+Need to get 7399 kB of archives.
+After this operation, 32.8 MB of additional disk space will be used.
+Get:1 http://archive.ubuntu.com/ubuntu focal-updates/main amd64 libssl1.1 amd64 1.1.1f-1ubuntu2.12 [1322 kB]
+Get:2 http://archive.ubuntu.com/ubuntu focal-updates/main amd64 libpython3.8-minimal amd64 3.8.10-0ubuntu1~20.04.2 [717 kB]
+Get:3 http://archive.ubuntu.com/ubuntu focal-updates/main amd64 libexpat1 amd64 2.2.9-1ubuntu0.4 [74.4 kB]
+Get:4 http://archive.ubuntu.com/ubuntu focal-updates/main amd64 python3.8-minimal amd64 3.8.10-0ubuntu1~20.04.2 [1900 kB]
+Get:5 http://archive.ubuntu.com/ubuntu focal/main amd64 python3-minimal amd64 3.8.2-0ubuntu2 [23.6 kB]
+Get:6 http://archive.ubuntu.com/ubuntu focal/main amd64 mime-support all 3.64ubuntu1 [30.6 kB]
+Get:7 http://archive.ubuntu.com/ubuntu focal/main amd64 libmpdec2 amd64 2.4.2-3 [81.1 kB]
+Get:8 http://archive.ubuntu.com/ubuntu focal/main amd64 readline-common all 8.0-4 [53.5 kB]
+Get:9 http://archive.ubuntu.com/ubuntu focal/main amd64 libreadline8 amd64 8.0-4 [131 kB]
+Get:10 http://archive.ubuntu.com/ubuntu focal-updates/main amd64 libsqlite3-0 amd64 3.31.1-4ubuntu0.2 [549 kB]
+Get:11 http://archive.ubuntu.com/ubuntu focal-updates/main amd64 libpython3.8-stdlib amd64 3.8.10-0ubuntu1~20.04.2 [1675 kB]
+Get:12 http://archive.ubuntu.com/ubuntu focal-updates/main amd64 python3.8 amd64 3.8.10-0ubuntu1~20.04.2 [387 kB]
+Get:13 http://archive.ubuntu.com/ubuntu focal/main amd64 libpython3-stdlib amd64 3.8.2-0ubuntu2 [7068 B]
+Get:14 http://archive.ubuntu.com/ubuntu focal/main amd64 python3 amd64 3.8.2-0ubuntu2 [47.6 kB]
+Get:15 http://archive.ubuntu.com/ubuntu focal/main amd64 libmagic-mgc amd64 1:5.38-4 [218 kB]
+Get:16 http://archive.ubuntu.com/ubuntu focal/main amd64 libmagic1 amd64 1:5.38-4 [75.9 kB]
+Get:17 http://archive.ubuntu.com/ubuntu focal/main amd64 file amd64 1:5.38-4 [23.3 kB]
+Get:18 http://archive.ubuntu.com/ubuntu focal-updates/main amd64 xz-utils amd64 5.2.4-1ubuntu1 [82.5 kB]
+[91mdebconf: delaying package configuration, since apt-utils is not installed
+[0mFetched 7399 kB in 1s (7581 kB/s)
+Selecting previously unselected package libssl1.1:amd64.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 6499 files and directories currently installed.)
+Preparing to unpack .../libssl1.1_1.1.1f-1ubuntu2.12_amd64.deb ...
+Unpacking libssl1.1:amd64 (1.1.1f-1ubuntu2.12) ...
+Selecting previously unselected package libpython3.8-minimal:amd64.
+Preparing to unpack .../libpython3.8-minimal_3.8.10-0ubuntu1~20.04.2_amd64.deb ...
+Unpacking libpython3.8-minimal:amd64 (3.8.10-0ubuntu1~20.04.2) ...
+Selecting previously unselected package libexpat1:amd64.
+Preparing to unpack .../libexpat1_2.2.9-1ubuntu0.4_amd64.deb ...
+Unpacking libexpat1:amd64 (2.2.9-1ubuntu0.4) ...
+Selecting previously unselected package python3.8-minimal.
+Preparing to unpack .../python3.8-minimal_3.8.10-0ubuntu1~20.04.2_amd64.deb ...
+Unpacking python3.8-minimal (3.8.10-0ubuntu1~20.04.2) ...
+Setting up libssl1.1:amd64 (1.1.1f-1ubuntu2.12) ...
+debconf: unable to initialize frontend: Dialog
+debconf: (TERM is not set, so the dialog frontend is not usable.)
+debconf: falling back to frontend: Readline
+debconf: unable to initialize frontend: Readline
+debconf: (Can't locate Term/ReadLine.pm in @INC (you may need to install the Term::ReadLine module) (@INC contains: /etc/perl /usr/local/lib/x86_64-linux-gnu/perl/5.30.0 /usr/local/share/perl/5.30.0 /usr/lib/x86_64-linux-gnu/perl5/5.30 /usr/share/perl5 /usr/lib/x86_64-linux-gnu/perl/5.30 /usr/share/perl/5.30 /usr/local/lib/site_perl /usr/lib/x86_64-linux-gnu/perl-base) at /usr/share/perl5/Debconf/FrontEnd/Readline.pm line 7.)
+debconf: falling back to frontend: Teletype
+Setting up libpython3.8-minimal:amd64 (3.8.10-0ubuntu1~20.04.2) ...
+Setting up libexpat1:amd64 (2.2.9-1ubuntu0.4) ...
+Setting up python3.8-minimal (3.8.10-0ubuntu1~20.04.2) ...
+Selecting previously unselected package python3-minimal.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 6800 files and directories currently installed.)
+Preparing to unpack .../0-python3-minimal_3.8.2-0ubuntu2_amd64.deb ...
+Unpacking python3-minimal (3.8.2-0ubuntu2) ...
+Selecting previously unselected package mime-support.
+Preparing to unpack .../1-mime-support_3.64ubuntu1_all.deb ...
+Unpacking mime-support (3.64ubuntu1) ...
+Selecting previously unselected package libmpdec2:amd64.
+Preparing to unpack .../2-libmpdec2_2.4.2-3_amd64.deb ...
+Unpacking libmpdec2:amd64 (2.4.2-3) ...
+Selecting previously unselected package readline-common.
+Preparing to unpack .../3-readline-common_8.0-4_all.deb ...
+Unpacking readline-common (8.0-4) ...
+Selecting previously unselected package libreadline8:amd64.
+Preparing to unpack .../4-libreadline8_8.0-4_amd64.deb ...
+Unpacking libreadline8:amd64 (8.0-4) ...
+Selecting previously unselected package libsqlite3-0:amd64.
+Preparing to unpack .../5-libsqlite3-0_3.31.1-4ubuntu0.2_amd64.deb ...
+Unpacking libsqlite3-0:amd64 (3.31.1-4ubuntu0.2) ...
+Selecting previously unselected package libpython3.8-stdlib:amd64.
+Preparing to unpack .../6-libpython3.8-stdlib_3.8.10-0ubuntu1~20.04.2_amd64.deb ...
+Unpacking libpython3.8-stdlib:amd64 (3.8.10-0ubuntu1~20.04.2) ...
+Selecting previously unselected package python3.8.
+Preparing to unpack .../7-python3.8_3.8.10-0ubuntu1~20.04.2_amd64.deb ...
+Unpacking python3.8 (3.8.10-0ubuntu1~20.04.2) ...
+Selecting previously unselected package libpython3-stdlib:amd64.
+Preparing to unpack .../8-libpython3-stdlib_3.8.2-0ubuntu2_amd64.deb ...
+Unpacking libpython3-stdlib:amd64 (3.8.2-0ubuntu2) ...
+Setting up python3-minimal (3.8.2-0ubuntu2) ...
+Selecting previously unselected package python3.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 7230 files and directories currently installed.)
+Preparing to unpack .../python3_3.8.2-0ubuntu2_amd64.deb ...
+Unpacking python3 (3.8.2-0ubuntu2) ...
+Selecting previously unselected package libmagic-mgc.
+Preparing to unpack .../libmagic-mgc_1%3a5.38-4_amd64.deb ...
+Unpacking libmagic-mgc (1:5.38-4) ...
+Selecting previously unselected package libmagic1:amd64.
+Preparing to unpack .../libmagic1_1%3a5.38-4_amd64.deb ...
+Unpacking libmagic1:amd64 (1:5.38-4) ...
+Selecting previously unselected package file.
+Preparing to unpack .../file_1%3a5.38-4_amd64.deb ...
+Unpacking file (1:5.38-4) ...
+Selecting previously unselected package xz-utils.
+Preparing to unpack .../xz-utils_5.2.4-1ubuntu1_amd64.deb ...
+Unpacking xz-utils (5.2.4-1ubuntu1) ...
+Setting up mime-support (3.64ubuntu1) ...
+Setting up libmagic-mgc (1:5.38-4) ...
+Setting up libsqlite3-0:amd64 (3.31.1-4ubuntu0.2) ...
+Setting up libmagic1:amd64 (1:5.38-4) ...
+Setting up file (1:5.38-4) ...
+Setting up xz-utils (5.2.4-1ubuntu1) ...
+update-alternatives: using /usr/bin/xz to provide /usr/bin/lzma (lzma) in auto mode
+update-alternatives: warning: skip creation of /usr/share/man/man1/lzma.1.gz because associated file /usr/share/man/man1/xz.1.gz (of link group lzma) doesn't exist
+update-alternatives: warning: skip creation of /usr/share/man/man1/unlzma.1.gz because associated file /usr/share/man/man1/unxz.1.gz (of link group lzma) doesn't exist
+update-alternatives: warning: skip creation of /usr/share/man/man1/lzcat.1.gz because associated file /usr/share/man/man1/xzcat.1.gz (of link group lzma) doesn't exist
+update-alternatives: warning: skip creation of /usr/share/man/man1/lzmore.1.gz because associated file /usr/share/man/man1/xzmore.1.gz (of link group lzma) doesn't exist
+update-alternatives: warning: skip creation of /usr/share/man/man1/lzless.1.gz because associated file /usr/share/man/man1/xzless.1.gz (of link group lzma) doesn't exist
+update-alternatives: warning: skip creation of /usr/share/man/man1/lzdiff.1.gz because associated file /usr/share/man/man1/xzdiff.1.gz (of link group lzma) doesn't exist
+update-alternatives: warning: skip creation of /usr/share/man/man1/lzcmp.1.gz because associated file /usr/share/man/man1/xzcmp.1.gz (of link group lzma) doesn't exist
+update-alternatives: warning: skip creation of /usr/share/man/man1/lzgrep.1.gz because associated file /usr/share/man/man1/xzgrep.1.gz (of link group lzma) doesn't exist
+update-alternatives: warning: skip creation of /usr/share/man/man1/lzegrep.1.gz because associated file /usr/share/man/man1/xzegrep.1.gz (of link group lzma) doesn't exist
+update-alternatives: warning: skip creation of /usr/share/man/man1/lzfgrep.1.gz because associated file /usr/share/man/man1/xzfgrep.1.gz (of link group lzma) doesn't exist
+Setting up libmpdec2:amd64 (2.4.2-3) ...
+Setting up readline-common (8.0-4) ...
+Setting up libreadline8:amd64 (8.0-4) ...
+Setting up libpython3.8-stdlib:amd64 (3.8.10-0ubuntu1~20.04.2) ...
+Setting up python3.8 (3.8.10-0ubuntu1~20.04.2) ...
+Setting up libpython3-stdlib:amd64 (3.8.2-0ubuntu2) ...
+Setting up python3 (3.8.2-0ubuntu2) ...
+running python rtupdate hooks for python3.8...
+running python post-rtupdate hooks for python3.8...
+Processing triggers for libc-bin (2.31-0ubuntu9.7) ...
+Removing intermediate container 5ba19bd20365
+ ---> 736a51777b69
+Step 9/16 : COPY server.sh /root
+ ---> 0797a3457788
+Step 10/16 : COPY metric_server.sh /root
+ ---> b56756d249b9
+Step 11/16 : COPY metric.py /root
+ ---> 9468c993aec1
+Step 12/16 : USER root
+ ---> Running in 84753ccbc462
+Removing intermediate container 84753ccbc462
+ ---> ab4690b27b8b
+Step 13/16 : CMD chmod +x /root/server.sh
+ ---> Running in 43ae0856785c
+Removing intermediate container 43ae0856785c
+ ---> a5446fbc1c5c
+Step 14/16 : CMD chmod +x /root/metric_server.sh
+ ---> Running in 39d5a21d2fdb
+Removing intermediate container 39d5a21d2fdb
+ ---> 545050e0e7a5
+Step 15/16 : CMD chmod +x /root/metric.py
+ ---> Running in e3f3cbe4204a
+Removing intermediate container e3f3cbe4204a
+ ---> 2c4b230c95fb
+Step 16/16 : WORKDIR /root
+ ---> Running in b282f1f32131
+Removing intermediate container b282f1f32131
+ ---> d442d967fc0f
+Successfully built d442d967fc0f
+Successfully tagged server_for_tensor:latest
